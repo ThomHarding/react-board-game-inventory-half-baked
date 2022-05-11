@@ -16,11 +16,27 @@ import './App.css';
 import { logout } from './services/fetch-utils';
 
 export default function App() {
+  const [email, setEmail] = useState();
+  const [token, setToken] = useState();
   // You'll need to track the user in state
+  email; //just here so it doesn't get mad at me for not using it
 
+  useEffect(() => {
+    // this will keep us from losing state on every reload. this way we don't have to log in every time we refresh the page.
+    const user = getUser();
+
+    if (user) {
+      setToken(user.access_token);
+      setEmail(user.user.email);
+    }
+  
+  }, []);
   // add a useEffect to get the user and inject the user object into state on load
 
   async function handleLogout() {
+    await logout();
+    setEmail('');
+    setToken('');
     // call the logout function
     // clear the user in state
   }
@@ -32,17 +48,54 @@ export default function App() {
           {/* if there is a user in state, render out a link to the board games list, the create page, and add a button to let the user logout */}
         </header>
         <main>
+          {
+            token
+              ? (<nav>
+                <ul>
+                  <li>
+                    <NavLink to="/ListPage">Board Games List</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/CreatePage">Create</NavLink>
+                  </li>
+                  <li>
+                    <button onClick={handleLogout}>Log out</button>
+                  </li>
+                </ul>
+              </nav>)
+              : null
+          }
           <Switch>
             <Route exact path="/">
+              {
+                token
+                  ? <Redirect to="/ListPage" /> 
+                  : <AuthPage setEmail={setEmail} setToken={setToken} />
+              }
               {/* if there is a user, redirect to the board games list. Otherwise, render the auth page. Note that the AuthPage will need a function called setUser that can set the user state in App.js */}
             </Route>
-            <Route exact path="/board-games">
+            <Route exact path="/ListPage">
+              {
+                token
+                  ? <ListPage /> 
+                  : <AuthPage setEmail={setEmail} setToken={setToken} />
+              }
               {/* if there is a user, render the board games list. Otherwise, redirect to the home route/auth page */}
             </Route>
             <Route exact path="/board-games/:id">
+              {
+                token
+                  ? <DetailPage /> 
+                  : <AuthPage setEmail={setEmail} setToken={setToken} />
+              }
               {/* if there is a user, render the detail page. Otherwise, redirect to the home route/auth page */}
             </Route>
-            <Route exact path="/create">
+            <Route exact path="/CreatePage">
+              {
+                token
+                  ? <CreatePage /> 
+                  : <AuthPage setEmail={setEmail} setToken={setToken} />
+              }
               {/* if there is a user, render the create page. Otherwise, redirect to the home route/auth page */}
             </Route>
           </Switch>

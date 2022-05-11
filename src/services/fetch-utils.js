@@ -40,7 +40,6 @@ export async function getGames() {
     .from('board_games')
     .select();
 
-
   return checkError(response);    
 }
 
