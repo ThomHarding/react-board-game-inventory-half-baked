@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 
 export default function Game({ game }) {
+  console.log('hi');
+  console.log(game);
   return (
     <Link to={`/board-games/${game.id}`}>
       {/* be sure this component is wrapped in a react-router link that takes the user to the correct detail page */}

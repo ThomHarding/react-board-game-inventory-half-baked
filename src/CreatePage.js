@@ -10,8 +10,8 @@ export default function CreatePage() {
     genre: '',
     designer: '',
     description: '',
-    minPlayers: 0,
-    maxPlayers: 0,
+    min_players: 0,
+    max_players: 0,
   });
   // here's the state you'll need:
     // title;
@@ -23,7 +23,6 @@ export default function CreatePage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     await createGame(createForm);
     // create a game
 
@@ -42,10 +41,10 @@ export default function CreatePage() {
           <input
             required
             name='title' 
-            value={createForm.name} 
+            value={createForm.title} 
             onChange={e => setCreateForm({
               ...createForm,
-              name: e.target.value,
+              title: e.target.value,
             })} />
         </label>
         <label>

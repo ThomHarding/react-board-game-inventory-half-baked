@@ -19,6 +19,7 @@ export default function App() {
   const [email, setEmail] = useState();
   const [token, setToken] = useState();
   // You'll need to track the user in state
+  email; //just here so it doesn't get mad at me for not using it
 
   useEffect(() => {
     // this will keep us from losing state on every reload. this way we don't have to log in every time we refresh the page.
@@ -73,7 +74,7 @@ export default function App() {
               }
               {/* if there is a user, redirect to the board games list. Otherwise, render the auth page. Note that the AuthPage will need a function called setUser that can set the user state in App.js */}
             </Route>
-            <Route exact path="/board-games">
+            <Route exact path="/ListPage">
               {
                 token
                   ? <ListPage /> 
@@ -89,7 +90,7 @@ export default function App() {
               }
               {/* if there is a user, render the detail page. Otherwise, redirect to the home route/auth page */}
             </Route>
-            <Route exact path="/create">
+            <Route exact path="/CreatePage">
               {
                 token
                   ? <CreatePage /> 
