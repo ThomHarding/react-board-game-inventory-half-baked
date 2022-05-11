@@ -44,9 +44,12 @@ export default function App() {
     <Router>
       <div className='App'>
         <header>
+          {/* if there is a user in state, render out a link to the board games list, the create page, and add a button to let the user logout */}
+        </header>
+        <main>
           {
             token
-              ? <nav>
+              ? (<nav>
                 <ul>
                   <li>
                     <NavLink to="/ListPage">Board Games List</NavLink>
@@ -55,18 +58,12 @@ export default function App() {
                     <NavLink to="/CreatePage">Create</NavLink>
                   </li>
                   <li>
-                    <p>{email}</p>
-                    <p>{token}</p>
                     <button onClick={handleLogout}>Log out</button>
                   </li>
                 </ul>
-              </nav>
+              </nav>)
               : null
           }
-
-          {/* if there is a user in state, render out a link to the board games list, the create page, and add a button to let the user logout */}
-        </header>
-        <main>
           <Switch>
             <Route exact path="/">
               {

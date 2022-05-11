@@ -14,6 +14,7 @@ export default function ListPage() {
 
     loadData();
   }, []);
+  
   // fetch the games on load and inject them into state
   return (
     <div className='list games'>
