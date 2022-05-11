@@ -4,7 +4,7 @@ import { getGameById } from './services/fetch-utils';
 
 export default function DetailPage() {
   const [game, setGame] = useState({});
-  const id = useRouteMatch('board-games/:id');
+  const id = useRouteMatch('/board-games/:id').params.id;
 
   useEffect(() => {
     async function loadData() {
